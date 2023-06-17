@@ -1,0 +1,6 @@
+spring:
+  datasource:
+    username: root
+    password: Bushrdd@24568
+    url: jdbc:mysql://123.249.99.118:3306/zxd
+    driver-class-name: com.mysql.cj.jdbc.Driver

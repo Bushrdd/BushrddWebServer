@@ -1,26 +1,54 @@
 package com.bushrdd.bushrddwebserver.controller;
 
+import com.bushrdd.bushrddwebserver.pojo.Songs;
 import com.bushrdd.bushrddwebserver.service.UserServiceImpl;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
-import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
+
+import java.util.List;
+import java.util.Map;
 
 import static com.bushrdd.bushrddwebserver.utils.Result.OK;
 
 @RestController
+@CrossOrigin(origins = "*")
 public class UserController {
 
     @Autowired
     UserServiceImpl userService;
 
-    @RequestMapping(value = "/addUser", method = RequestMethod.POST)
-    public String addUser(@RequestParam("username") String username, @RequestParam("password") String password) {
-        System.out.println(username);
-        System.out.println(password);
+    // @RequestMapping(value = "/addUser", method = RequestMethod.POST)
+    // public String addUser(@RequestParam("username") String username, @RequestParam("password") String password) {
+    //     System.out.println(username);
+    //     System.out.println(password);
+    //     // userService.addUser(username, password);
+    //     userService.findUserByName(username);
+    //     return OK();
+    // }
+
+    // @RequestMapping(value = "/addUser", method = RequestMethod.POST)
+    // public String addUser(@RequestBody Map<String, String> requestData) {
+    //     String username = requestData.get("username");
+    //     String password = requestData.get("password");
+    //
+    //     System.out.println(username);
+    //     System.out.println(password);
+    //     // userService.addUser(username, password);
+    //     userService.findUserByName(username);
+    //
+    //     return OK();
+    // }
+
+    @RequestMapping(value = "/getSongList", method = RequestMethod.POST)
+    public String getSongList() {
+        // String username = requestData.get("username");
+        // String password = requestData.get("password");
+
+        // System.out.println(username);
+        // System.out.println(password);
         // userService.addUser(username, password);
-        userService.findUserByName(username);
-        return OK();
+       List<Songs> songs = userService.getSongList();
+
+        return OK(songs);
     }
 }

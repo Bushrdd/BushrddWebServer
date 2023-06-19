@@ -11,7 +11,7 @@ import java.util.Map;
 import static com.bushrdd.bushrddwebserver.utils.Result.OK;
 
 @RestController
-@CrossOrigin(origins = "*")
+// @CrossOrigin(origins = "*")
 public class UserController {
 
     @Autowired
@@ -39,7 +39,7 @@ public class UserController {
     //     return OK();
     // }
 
-    @RequestMapping(value = "/getSongList", method = RequestMethod.POST)
+    @RequestMapping(value = "/getSongList", method = RequestMethod.GET)
     public String getSongList() {
         // String username = requestData.get("username");
         // String password = requestData.get("password");

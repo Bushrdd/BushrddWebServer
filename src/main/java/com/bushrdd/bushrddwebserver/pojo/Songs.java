@@ -27,4 +27,7 @@ public class Songs {
 
     @TableField(value = "lyric_url")
     private String lyricUrl;
+
+    @TableField(value = "today")
+    private int today;
 }

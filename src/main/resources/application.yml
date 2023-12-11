@@ -5,4 +5,13 @@ spring:
     url: jdbc:mysql://123.249.99.118:3306/zxd
     driver-class-name: com.mysql.cj.jdbc.Driver
 server:
+#  port: 8368
+#  ssl:
+#    key-store: src/main/resources/bushrdd.cn.jks
+#    key-store-password: 3lpn7ql4g5
+#    key-store-type: JKS //尼玛的jks不能访问
   port: 8368
+  ssl:
+    key-store: bushrdd.cn.pfx
+    key-store-password: 9n2o5hdp3wr1
+#    key-store-type: JKS

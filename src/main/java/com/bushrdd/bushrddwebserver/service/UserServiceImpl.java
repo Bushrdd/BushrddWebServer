@@ -23,9 +23,21 @@ public class UserServiceImpl {
     //     System.out.println(userPojo);
     // }
 
-    public  List<Songs> getSongList() {
+    public List<Songs> getSongList() {
         List<Songs> songs = songDao.selectList(null);
         System.out.println(songs);
         return songs;
+    }
+
+    public void setTodaySong(int id) {
+        QueryWrapper<Songs> oldSongWrapper = new QueryWrapper<Songs>().eq("today", 1);
+        Songs oldSong = songDao.selectOne(oldSongWrapper);//旧的今日歌曲
+        oldSong.setToday(0);
+        songDao.update(oldSong, oldSongWrapper);
+
+        QueryWrapper<Songs> newSongWrapper = new QueryWrapper<Songs>().eq("song_id", id);
+        Songs newSong = songDao.selectOne(newSongWrapper);
+        newSong.setToday(1);
+        songDao.update(newSong, newSongWrapper);
     }
 }

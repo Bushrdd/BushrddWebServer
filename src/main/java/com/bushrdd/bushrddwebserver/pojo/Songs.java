@@ -30,4 +30,13 @@ public class Songs {
 
     @TableField(value = "today")
     private int today;
+
+    public String toString() {
+        return "id: " + songId
+                + "\nsongName: " + songName
+                + "\nsongSinger: " + songSinger
+                + "\nsongUrl: " + songUrl
+                + "\nlyricUrl: " + lyricUrl
+                + "\ntoday: " + today;
+    }
 }

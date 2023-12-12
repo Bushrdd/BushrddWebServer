@@ -23,4 +23,11 @@ public class Result {
         map.put("data", songs);
         return JSONObject.toJSONString(map);
     }
+
+    public static String ERROR() {
+        Map<String, Object> map = new HashMap<>();
+        map.put("code", 400);
+        map.put("message", "error");
+        return JSONObject.toJSONString(map);
+    }
 }

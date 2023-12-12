@@ -8,6 +8,7 @@ import org.springframework.web.bind.annotation.*;
 import java.util.List;
 import java.util.Map;
 
+import static com.bushrdd.bushrddwebserver.utils.Result.ERROR;
 import static com.bushrdd.bushrddwebserver.utils.Result.OK;
 
 @RestController
@@ -47,8 +48,22 @@ public class UserController {
         // System.out.println(username);
         // System.out.println(password);
         // userService.addUser(username, password);
-       List<Songs> songs = userService.getSongList();
+        List<Songs> songs = userService.getSongList();
 
         return OK(songs);
+    }
+
+    @RequestMapping(value = "/setTodaySong", method = RequestMethod.POST)
+    public String setTodaySong(@RequestBody Map<String, Integer> requestData) {
+        int id = requestData.get("id");
+
+        System.out.println(id);
+
+        try {
+            userService.setTodaySong(id);
+        } catch (Exception e) {
+            return ERROR();
+        }
+        return OK();
     }
 }

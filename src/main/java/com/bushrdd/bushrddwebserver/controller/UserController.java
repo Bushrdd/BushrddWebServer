@@ -4,6 +4,7 @@ import com.bushrdd.bushrddwebserver.pojo.Songs;
 import com.bushrdd.bushrddwebserver.pojo.VoiceRoomConfigurations;
 import com.bushrdd.bushrddwebserver.pojo.VoiceRoomUsers;
 import com.bushrdd.bushrddwebserver.service.UserServiceImpl;
+import com.bushrdd.bushrddwebserver.utils.VoiceCallTokenManager;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
@@ -105,4 +106,16 @@ public class UserController {
         return OK(voiceRoomConfigurations);
     }
 
+    @RequestMapping(value = "/movie/CreateToken", method = RequestMethod.GET)
+    public String CreateToken(@RequestParam(name = "channelName") String channelName) {
+        String[] result;
+        try {
+            result = VoiceCallTokenManager.createToken(channelName);
+            userService.addVoiceCallCon(channelName, result[0], result[1]);
+        } catch (Exception e) {
+            e.printStackTrace();
+            return ERROR(e.getMessage());
+        }
+        return OK(result[0]);
+    }
 }

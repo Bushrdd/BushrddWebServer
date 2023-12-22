@@ -12,6 +12,8 @@ import org.springframework.stereotype.Service;
 
 import java.util.List;
 
+import static com.bushrdd.bushrddwebserver.utils.VoiceCallTokenManager.appId;
+
 @Service
 public class UserServiceImpl {
 
@@ -70,5 +72,11 @@ public class UserServiceImpl {
         List<VoiceRoomConfigurations> voiceRoomCon = voiceRoomConDao.selectList(null);
         System.out.println(voiceRoomCon);
         return voiceRoomCon;
+    }
+
+    public void addVoiceCallCon(String channelName, String token, String invalidDate) {
+        QueryWrapper<VoiceRoomConfigurations> wrapper = new QueryWrapper<VoiceRoomConfigurations>().eq("channel", channelName);
+        voiceRoomConDao.delete(wrapper);
+        voiceRoomConDao.insert(new VoiceRoomConfigurations(channelName, token, appId, invalidDate));
     }
 }

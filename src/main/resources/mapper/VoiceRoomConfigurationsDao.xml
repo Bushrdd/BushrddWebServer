@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.bushrdd.bushrddwebserver.dao.VoiceRoomConfigurationsDao">
+
+    <insert id="insertOrUpdate" parameterType="com.bushrdd.bushrddwebserver.pojo.VoiceRoomConfigurations">
+        INSERT INTO voice_room_config (channel, token, appid, invalidDate)
+        VALUES (#{channel}, #{token}, #{appid}, #{invalid_date})
+        ON DUPLICATE KEY UPDATE token = VALUES(token), appid = VALUES(appid), invalidDate = VALUES(invalid_date)
+    </insert>
+
+</mapper>

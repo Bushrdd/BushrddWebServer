@@ -6,4 +6,5 @@ import org.apache.ibatis.annotations.Mapper;
 
 @Mapper
 public interface VoiceRoomConfigurationsDao extends BaseMapper<VoiceRoomConfigurations> {
+    // void insertOrUpdate(VoiceRoomConfigurations con);
 }

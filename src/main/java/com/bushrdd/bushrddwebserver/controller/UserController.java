@@ -1,6 +1,8 @@
 package com.bushrdd.bushrddwebserver.controller;
 
 import com.bushrdd.bushrddwebserver.pojo.Songs;
+import com.bushrdd.bushrddwebserver.pojo.VoiceRoomConfigurations;
+import com.bushrdd.bushrddwebserver.pojo.VoiceRoomUsers;
 import com.bushrdd.bushrddwebserver.service.UserServiceImpl;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
@@ -66,4 +68,41 @@ public class UserController {
         }
         return OK();
     }
+
+    @RequestMapping(value = "/movie/getVoiceRoomUsersInfo", method = RequestMethod.GET)
+    public String getVoiceRoomUsersInfo() {
+        List<VoiceRoomUsers> voiceRoomUsers;
+        try {
+            voiceRoomUsers = userService.getVoiceRoomUsersInfo();
+        } catch (Exception e) {
+            e.printStackTrace();
+            return ERROR(e.getMessage());
+        }
+        return OK(voiceRoomUsers);
+    }
+
+    @RequestMapping(value = "/movie/getVoiceRoomUsersInfoByChannel", method = RequestMethod.GET)
+    public String getVoiceRoomUsersInfoByChannel(@RequestParam(name = "channel", required = false) String channel) {
+        List<VoiceRoomUsers> voiceRoomUsers;
+        try {
+            voiceRoomUsers = userService.getVoiceRoomUsersInfoByChannel(channel);
+        } catch (Exception e) {
+            e.printStackTrace();
+            return ERROR(e.getMessage());
+        }
+        return OK(voiceRoomUsers);
+    }
+
+    @RequestMapping(value = "/movie/getVoiceRoomConfigurations", method = RequestMethod.GET)
+    public String getVoiceRoomConfigurations() {
+        List<VoiceRoomConfigurations> voiceRoomConfigurations;
+        try {
+            voiceRoomConfigurations = userService.getVoiceRoomConfigurations();
+        } catch (Exception e) {
+            e.printStackTrace();
+            return ERROR(e.getMessage());
+        }
+        return OK(voiceRoomConfigurations);
+    }
+
 }

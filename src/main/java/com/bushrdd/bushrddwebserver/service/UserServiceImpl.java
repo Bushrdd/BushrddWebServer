@@ -2,7 +2,11 @@ package com.bushrdd.bushrddwebserver.service;
 
 import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
 import com.bushrdd.bushrddwebserver.dao.SongDao;
+import com.bushrdd.bushrddwebserver.dao.VoiceRoomConfigurationsDao;
+import com.bushrdd.bushrddwebserver.dao.VoiceRoomUsersDao;
 import com.bushrdd.bushrddwebserver.pojo.Songs;
+import com.bushrdd.bushrddwebserver.pojo.VoiceRoomConfigurations;
+import com.bushrdd.bushrddwebserver.pojo.VoiceRoomUsers;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -11,8 +15,16 @@ import java.util.List;
 @Service
 public class UserServiceImpl {
 
-    @Autowired
     SongDao songDao;
+    VoiceRoomUsersDao voiceRoomUsersDao;
+    VoiceRoomConfigurationsDao voiceRoomConDao;
+
+    @Autowired
+    public UserServiceImpl(SongDao songDao, VoiceRoomUsersDao voiceRoomUsersDao, VoiceRoomConfigurationsDao voiceRoomConDao) {
+        this.songDao = songDao;
+        this.voiceRoomUsersDao = voiceRoomUsersDao;
+        this.voiceRoomConDao = voiceRoomConDao;
+    }
 
     // public void addUser(String username, String password) {
     //     userDao.insert(new UserPojo(username, password));
@@ -39,5 +51,24 @@ public class UserServiceImpl {
         Songs newSong = songDao.selectOne(newSongWrapper);
         newSong.setToday(1);
         songDao.update(newSong, newSongWrapper);
+    }
+
+    public List<VoiceRoomUsers> getVoiceRoomUsersInfo() {
+        List<VoiceRoomUsers> voiceRoomUsers = voiceRoomUsersDao.selectList(null);
+        System.out.println(voiceRoomUsers);
+        return voiceRoomUsers;
+    }
+
+    public List<VoiceRoomUsers> getVoiceRoomUsersInfoByChannel(String channel) {
+        QueryWrapper<VoiceRoomUsers> wrapper = new QueryWrapper<VoiceRoomUsers>().eq("channel", channel);
+        List<VoiceRoomUsers> voiceRoomUsers = voiceRoomUsersDao.selectList(wrapper);
+        System.out.println(voiceRoomUsers);
+        return voiceRoomUsers;
+    }
+
+    public List<VoiceRoomConfigurations> getVoiceRoomConfigurations() {
+        List<VoiceRoomConfigurations> voiceRoomCon = voiceRoomConDao.selectList(null);
+        System.out.println(voiceRoomCon);
+        return voiceRoomCon;
     }
 }

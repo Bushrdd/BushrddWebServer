@@ -27,6 +27,6 @@ public class VoiceCallTokenManager {
         // result = token.buildTokenWithUid(appId, appCertificate, channelName, uid, RtcTokenBuilder.Role.Role_Publisher, timestamp);
         // System.out.println(result);
 
-        return new String[]{result, new SimpleDateFormat("yyyy-MM-dd HH:mm:ss").format(new Date(timestamp * 1000))};
+        return new String[]{result, new SimpleDateFormat("yyyy-MM-dd HH:mm:ss").format(new Date(System.currentTimeMillis() + expirationTimeInSeconds * 1000))};
     }
 }

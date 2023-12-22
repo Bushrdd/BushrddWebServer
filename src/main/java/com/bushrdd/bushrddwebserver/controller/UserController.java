@@ -110,6 +110,9 @@ public class UserController {
     public String CreateToken(@RequestParam(name = "channelName") String channelName) {
         String[] result;
         try {
+            if ("".equals(channelName)){
+                return ERROR("房间名不可为空！");
+            }
             result = VoiceCallTokenManager.createToken(channelName);
             userService.addVoiceCallCon(channelName, result[0], result[1]);
         } catch (Exception e) {

@@ -22,22 +22,27 @@ public class VoiceRoomConfigurations {
     @TableField(value = "token")//房间
     private String token;
 
+    @TableField(value = "user_count")//房间人数
+    private int userCount;
+
     @TableField(value = "appid")
     private String appid;
 
     @TableField(value = "invalid_date")//失效日期
     private String invalidDate;
 
-    public VoiceRoomConfigurations(String channel, String token, String appid, String invalid_date) {
+    public VoiceRoomConfigurations(String channel, String token, int userCount, String appid, String invalidDate) {
         this.channel = channel;
         this.token = token;
+        this.userCount = userCount;
         this.appid = appid;
-        this.invalidDate = invalid_date;
+        this.invalidDate = invalidDate;
     }
 
     public String toString() {
-        return  "channel: " + channel
+        return "channel: " + channel
                 + "\ntoken: " + token
+                + "\nuserCount: " + userCount
                 + "\nappid: " + appid
                 + "\ninvalidDate: " + invalidDate;
     }

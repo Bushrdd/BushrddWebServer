@@ -77,6 +77,6 @@ public class UserServiceImpl {
     public void addVoiceCallCon(String channelName, String token, String invalidDate) {
         QueryWrapper<VoiceRoomConfigurations> wrapper = new QueryWrapper<VoiceRoomConfigurations>().eq("channel", channelName);
         voiceRoomConDao.delete(wrapper);
-        voiceRoomConDao.insert(new VoiceRoomConfigurations(channelName, token, appId, invalidDate));
+        voiceRoomConDao.insert(new VoiceRoomConfigurations(channelName, token, 0, appId, invalidDate));
     }
 }

@@ -74,9 +74,34 @@ public class UserServiceImpl {
         return voiceRoomCon;
     }
 
-    public void addVoiceCallCon(String channelName, String token, String invalidDate) {
+    public VoiceRoomConfigurations getVoiceRoomConfigurationsByChannel(String channel) {
+        QueryWrapper<VoiceRoomConfigurations> wrapper = new QueryWrapper<VoiceRoomConfigurations>().eq("channel", channel);
+        VoiceRoomConfigurations voiceRoomCon = voiceRoomConDao.selectOne(wrapper);
+        System.out.println(voiceRoomCon);
+        return voiceRoomCon;
+    }
+
+    //向数据库中添加房间配置
+    public void addVoiceCallCon(String channelName) {
         QueryWrapper<VoiceRoomConfigurations> wrapper = new QueryWrapper<VoiceRoomConfigurations>().eq("channel", channelName);
         voiceRoomConDao.delete(wrapper);
-        voiceRoomConDao.insert(new VoiceRoomConfigurations(channelName, token, 0, appId, invalidDate));
+        voiceRoomConDao.insert(new VoiceRoomConfigurations(channelName, 0));
+    }
+
+    //查询用户是否存在
+    public boolean judgeExists(String channelName, String userName) {
+        QueryWrapper<VoiceRoomUsers> wrapper = new QueryWrapper<VoiceRoomUsers>().eq("user_name", userName).eq("channel", channelName);
+        return voiceRoomUsersDao.exists(wrapper);
+    }
+
+    //向数据库中添加用户
+    public void addVoiceCallUser(VoiceRoomUsers voiceRoomUsers) {
+        //添加用户
+        voiceRoomUsersDao.insert(voiceRoomUsers);
+        //增加房间人数
+        QueryWrapper<VoiceRoomConfigurations> wrapper = new QueryWrapper<VoiceRoomConfigurations>().eq("channel", voiceRoomUsers.getChannel());
+        VoiceRoomConfigurations voiceRoomConfigurations = voiceRoomConDao.selectOne(wrapper);
+        voiceRoomConfigurations.setUserCount(voiceRoomConfigurations.getUserCount() + 1);
+        voiceRoomConDao.update(voiceRoomConfigurations, wrapper);
     }
 }

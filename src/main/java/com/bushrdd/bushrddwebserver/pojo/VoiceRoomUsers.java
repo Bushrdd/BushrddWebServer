@@ -9,18 +9,27 @@ import lombok.Data;
 import lombok.NoArgsConstructor;
 
 @Data
-@AllArgsConstructor
 @NoArgsConstructor
 @TableName(value = "voice_room_users")
 public class VoiceRoomUsers {
-    @TableId(value = "user_name", type = IdType.AUTO)
+    @TableField(value = "user_name")
     private String userName;
 
     @TableField(value = "channel")//房间
     private String channel;
 
+    @TableId(value = "token", type = IdType.AUTO)
+    private String token;
+
+    public VoiceRoomUsers(String userName, String channel, String token) {
+        this.userName = userName;
+        this.channel = channel;
+        this.token = token;
+    }
+
     public String toString() {
         return "userName: " + userName
-                + "\nchannel: " + channel;
+                + "\nchannel: " + channel
+                + "\ntoken: " + token;
     }
 }
